@@ -49,10 +49,10 @@ class OptionalInputSerializerTest {
     fun `verify defined values are serialized correctly`() {
         val defined = InputWrapper(
             optionalInput = OptionalInput.Defined(123),
-            optionalInputObject = OptionalInput.Defined(BasicInput(OptionalInput.Defined("foo"))),
+            optionalInputObject = OptionalInput.Defined(BasicInput(OptionalInput.Defined("foo"), OptionalInput.Defined(true), OptionalInput.Defined(true))),
             optionalInputList = OptionalInput.Defined(listOf("a", "b", "c"))
         )
-        assertEquals("""{"optionalInput":123,"optionalInputObject":{"name":"foo"},"optionalInputList":["a","b","c"]}""", mapper.writeValueAsString(defined))
+        assertEquals("""{"optionalInput":123,"optionalInputObject":{"name":"foo","isBooleanPrefix":true,"normalBoolean":true},"optionalInputList":["a","b","c"]}""", mapper.writeValueAsString(defined))
     }
 
     @Test
@@ -68,6 +68,8 @@ class OptionalInputSerializerTest {
     )
 
     data class BasicInput(
-        val name: OptionalInput<String> = OptionalInput.Undefined
+        val name: OptionalInput<String> = OptionalInput.Undefined,
+        val isBooleanPrefix: OptionalInput<Boolean> = OptionalInput.Undefined,
+        val normalBoolean: OptionalInput<Boolean> = OptionalInput.Undefined
     )
 }
