@@ -18,6 +18,7 @@ package com.expediagroup.graphql.client.jackson.serializers
 
 import com.expediagroup.graphql.client.jackson.types.OptionalInput
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
@@ -68,8 +69,8 @@ class OptionalInputSerializerTest {
     )
 
     data class BasicInput(
-        val name: OptionalInput<String> = OptionalInput.Undefined,
-        val isBooleanPrefix: OptionalInput<Boolean> = OptionalInput.Undefined,
-        val normalBoolean: OptionalInput<Boolean> = OptionalInput.Undefined
+        @get:JsonProperty("name") val name: OptionalInput<String> = OptionalInput.Undefined,
+        @get:JsonProperty("isBooleanPrefix") val isBooleanPrefix: OptionalInput<Boolean> = OptionalInput.Undefined,
+        @get:JsonProperty("normalBoolean") val normalBoolean: OptionalInput<Boolean> = OptionalInput.Undefined
     )
 }
